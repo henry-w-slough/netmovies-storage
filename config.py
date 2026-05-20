@@ -1,6 +1,8 @@
 
 MOVIE_ROOT_DIRECTORY = "Movies"
-MOVIE_FILENAME = "movie"
+MOVIE_FILENAME = "movie.mp4"
 
 STORAGE_HOST = "localhost"
 STORAGE_PORT = 8040
+
+READ_SIZE = 1024*1024 * 32
