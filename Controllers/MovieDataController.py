@@ -27,11 +27,12 @@ class MovieDataController:
             status_code=200,
             content={"storageId": str(storageId)}
         )
-    
+
 
     async def downloadMovieData(self, storageId:uuid.UUID) -> fastapi.Response:
 
         return fastapi.responses.StreamingResponse(
             status_code=200,
-            content=MovieDataParser.stream_movie(f"{config.MOVIE_ROOT_DIRECTORY}/{storageId}/{config.MOVIE_FILENAME}")
+            content=MovieDataParser.stream_movie(f"{config.MOVIE_ROOT_DIRECTORY}/{storageId}/{config.MOVIE_FILE_NAME}"),
+            headers={"fileName": config.MOVIE_FILE_NAME, "fileExtension": config.MOVIE_FILE_EXTENSION} 
         )
