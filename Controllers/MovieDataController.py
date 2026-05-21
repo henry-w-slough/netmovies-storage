@@ -2,7 +2,7 @@ import fastapi
 import uuid
 import os
 
-from Utility import MovieDataHandler
+from Utility import MovieDataParser
 import config
 
 
@@ -21,7 +21,7 @@ class MovieDataController:
         movie_directory = os.path.join(config.MOVIE_ROOT_DIRECTORY, str(storageId))
 
         #attaching the movie data stream in the movie directory using MovieDataAssembler
-        await MovieDataHandler.merge_stream(movie_directory, request.stream())
+        await MovieDataParser.merge_stream(movie_directory, request.stream())
 
         return fastapi.responses.JSONResponse(
             status_code=200,
@@ -33,5 +33,5 @@ class MovieDataController:
 
         return fastapi.responses.StreamingResponse(
             status_code=200,
-            content=MovieDataHandler.stream_movie(f"{config.MOVIE_ROOT_DIRECTORY}/{storageId}/{config.MOVIE_FILENAME}")
+            content=MovieDataParser.stream_movie(f"{config.MOVIE_ROOT_DIRECTORY}/{storageId}/{config.MOVIE_FILENAME}")
         )
