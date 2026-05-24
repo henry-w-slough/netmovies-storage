@@ -38,7 +38,7 @@ class MovieDirectoryController:
         #deleting the directory
         shutil.rmtree(movie_directory)
 
-        return fastapi.responses.JSONResponse(status_code=204, content={"storageId": f"{storageId}"})
+        return fastapi.responses.Response(status_code=204)
     
         
 
