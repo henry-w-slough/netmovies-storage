@@ -23,22 +23,13 @@ class MovieDirectoryController:
 
 
     async def create_movie_directory(self, storage_id:uuid.UUID) -> fastapi.Response:
-        #creating movie directory
-        os.makedirs(os.path.join(config.MOVIE_ROOT_DIRECTORY, f"{storage_id}"), exist_ok=True)
-        return fastapi.responses.JSONResponse(status_code=201, content={"storageId": f"{storage_id}"})
+        #returning a successful creation with the content of the service return
+        return fastapi.responses.JSONResponse(status_code=201, content={"storageId": f"{await self.movie_directory_service.create_movie_directory(storage_id)}"})
     
     
     async def delete_movie_by_storage_id(self, storage_id:uuid.UUID) -> fastapi.Response:
-        
-        #creating movie directory
-        movie_directory = os.path.join(config.MOVIE_ROOT_DIRECTORY, f"{storage_id}")
-
-        if not os.path.exists(movie_directory):
-            raise MovieNotFoundException(f"Movie of StorageId: {storage_id} could not be found within storage.")
-        
-        #deleting the directory
-        shutil.rmtree(movie_directory)
-
+        #not returning anything since a No Content, by name, has no content
+        await self.movie_directory_service.delete_movie_by_storage_id(storage_id)
         return fastapi.responses.Response(status_code=204)
     
         
