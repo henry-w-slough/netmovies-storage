@@ -14,7 +14,7 @@ async def merge_stream(directory:str, data_stream:AsyncGenerator[bytes, None]) -
             await file.write(chunk)
 
 
-async def stream_movie(src: str):
+async def stream_movie(src: str) -> AsyncGenerator[bytes, None]:
     """Yields movie data in chunks from the given source path."""
     async with aiofiles.open(src, "rb") as file:
         while chunk := await file.read(config.READ_SIZE):

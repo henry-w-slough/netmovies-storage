@@ -20,10 +20,8 @@ class MovieDirectoryController:
 
 
     async def create_movie_directory(self, storageId:uuid.UUID) -> fastapi.Response:
-
         #creating movie directory
         os.makedirs(os.path.join(config.MOVIE_ROOT_DIRECTORY, f"{storageId}"), exist_ok=True)
-
         return fastapi.responses.JSONResponse(status_code=201, content={"storageId": f"{storageId}"})
     
     
