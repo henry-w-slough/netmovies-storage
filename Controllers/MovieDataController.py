@@ -14,11 +14,11 @@ class MovieDataController:
         """Handles all Movie data related HTTP requests."""
 
         #adding endpoints to fastapi
-        app.post("/data/uploadMovieData/{storageId:uuid}")(self.uploadMovieData)
-        app.get("/data/downloadMovieData/{storageId:uuid}")(self.downloadMovieData)
+        app.post("/data/uploadMovieData/{storageId:uuid}")(self.upload_movie_data)
+        app.get("/data/downloadMovieData/{storageId:uuid}")(self.download_movie_data)
 
 
-    async def uploadMovieData(self, storageId:uuid.UUID, request:fastapi.Request) -> fastapi.Response:
+    async def upload_movie_data(self, storageId:uuid.UUID, request:fastapi.Request) -> fastapi.Response:
 
         movie_directory = os.path.join(config.MOVIE_ROOT_DIRECTORY, str(storageId))
 
@@ -31,7 +31,7 @@ class MovieDataController:
         )
 
 
-    async def downloadMovieData(self, storageId:uuid.UUID) -> fastapi.Response:
+    async def download_movie_data(self, storageId:uuid.UUID) -> fastapi.Response:
 
         return fastapi.responses.StreamingResponse(
             status_code=200,
