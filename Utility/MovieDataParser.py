@@ -8,7 +8,7 @@ import config
 async def merge_stream(directory:str, data_stream:AsyncGenerator[bytes, None]) -> None:
     """Takes a data stream from HTTP and connects it, outputting the connected file to the given directory."""
     #opening the new file
-    async with aiofiles.open(os.path.join(directory, f"{config.MOVIE_FILE_NAME}{config.MOVIE_FILE_EXTENSION}"), "wb") as file:
+    async with aiofiles.open(os.path.join(directory, f"{config.MOVIE_FILE_NAME}.{config.MOVIE_FILE_FORMAT}"), "wb") as file:
         #writing the data stream, note that it will write as the data is received
         async for chunk in data_stream:
             await file.write(chunk)

@@ -35,5 +35,5 @@ class MovieDataController:
         return fastapi.responses.StreamingResponse(
             status_code=200,
             content = await self.movie_data_service.download_movie_data(storage_id),
-            headers={"fileName": config.MOVIE_FILE_NAME, "fileExtension": config.MOVIE_FILE_EXTENSION} 
+            headers={"fileName": config.MOVIE_FILE_NAME, "fileExtension": config.MOVIE_FILE_FORMAT} 
         )
