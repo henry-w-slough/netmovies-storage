@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
 from .MovieNotFoundException import MovieNotFoundException
+from .TranscodingFailureException import TranscodingFailureException
 
 
 def register_exception_handlers(app: FastAPI):
@@ -16,6 +17,11 @@ def register_exception_handlers(app: FastAPI):
 
     @app.exception_handler(MovieNotFoundException)
     async def movie_not_found_exception(request: Request, exc: MovieNotFoundException):
+        return JSONResponse(status_code=exc.exit_code, content=exc.message)
+
+
+    @app.exception_handler(TranscodingFailureException)
+    async def transcoding_failure_exception(request: Request, exc : TranscodingFailureException):
         return JSONResponse(status_code=exc.exit_code, content=exc.message)
 
 
