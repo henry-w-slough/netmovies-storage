@@ -23,7 +23,7 @@ class MovieDataController:
 
     async def upload_movie_data(self, storage_id:uuid.UUID, request:fastapi.Request) -> fastapi.Response:
         
-        #storageId in content is a string in order to 
+        #storageId in content is a string in order to serialize it
         return fastapi.responses.JSONResponse(
             status_code=200,
             content={"storageId": str(await self.movie_data_service.upload_movie_data(storage_id, request.stream()))}

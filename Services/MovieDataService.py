@@ -5,6 +5,7 @@ from typing import AsyncGenerator
 import config
 
 import Utility.MovieDataParser as MovieDataParser
+import Utility.MovieDataTranscoder as MovieDataTranscoder
 
 
 class MovieDataService:
@@ -21,4 +22,6 @@ class MovieDataService:
 
     async def download_movie_data(self, storage_id:uuid.UUID) -> AsyncGenerator[bytes, None]:
         
-        return MovieDataParser.stream_movie(os.path.join(config.MOVIE_ROOT_DIRECTORY, str(storage_id)))
+        stream = MovieDataParser.stream_movie(os.path.join(config.MOVIE_ROOT_DIRECTORY, str(storage_id)))
+
+        return MovieDataTranscoder.transcode_stream(stream, 1024*1024*64)
